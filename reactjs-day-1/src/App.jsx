@@ -1,12 +1,22 @@
 import React from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Home from './pages/Home'
+import AboutUs from './pages/AboutUs'
+import Login from './pages/Login'
+import SignUp from './pages/SignUp'
+
 
 const App = () => {
   return (
     <>
-      <div className='flex flex-col items-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-green-500 p-4 rounded-md'>
-        <span className='text-xl text-center text-gray-500'>Welcome to React Day1</span>
-        <h1 className='text-3xl font-bold'>Frist React App</h1>
-      </div>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/about' element={<AboutUs />}/>
+          <Route path='/login' element={<Login />}/>
+          <Route path='/signup' element={<SignUp />}/>
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }
