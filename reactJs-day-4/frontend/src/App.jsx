@@ -6,9 +6,22 @@ const App = () => {
 
   const [todos, setTodos] = useState([]);
 
-  const createTodo = async () => {
-    await axios.post('http://localhost:8001/todo/create');
+  // const createTodo = async () => {
+  //   await axios.post('http://localhost:8001/todo/create');
 
+  // }
+  const createTodo = async (title) => {
+    try {
+      await axios.post('http://localhost:8001/todo/create', { title });
+      await fetchTodos();
+    } catch (error) {
+      console.error('Error creating todo:', error);
+    }
+  }
+
+  const deleteTodo = async (_id) => {
+    await axios.delete(`http://localhost:8001/todo/delete/${_id}`);
+    await fetchTodos();
   }
 
   const fetchTodos = async () => {
@@ -17,13 +30,20 @@ const App = () => {
     setTodos(response.data.data);
   }
 
+  const updateTodo = async (_id,title) => {
+    await axios.put(`http://localhost:8001/todo/update/${_id}`,{title});
+    await fetchTodos();
+  }
   useEffect(() => {
     fetchTodos()
   }, [])
   return (
     <>
-      <TodoInput createTodo={createTodo} />
-      <TodoList todos={todos} />
+      <div className='max-w-[85%] mx-auto'>
+        <h1 className='text-2xl font-bold text-center text-green-500'>TodoApp2.0</h1>
+        <TodoInput createTodo={createTodo} />
+        <TodoList todos={todos} deleteTodo={deleteTodo} updateTodo={updateTodo} />
+      </div>
     </>
   )
 }
