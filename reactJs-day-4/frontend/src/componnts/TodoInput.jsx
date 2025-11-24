@@ -1,9 +1,22 @@
 import React, { useState } from 'react'
 
-const TodoInput = ({ createTodo }) => {
+const TodoInput = ({ createTodo, todos }) => {
     const [input, setInput] = useState('')
 
     const handleSubmit = () => {
+        if (input === '' || input.trim() === '') {
+            setInput('')
+            alert('Please enter a todo');
+            return
+        }
+
+        const existsItem = todos.find((item) => item.title.toLowerCase() === input.toLowerCase())
+        if (existsItem) {
+            alert('Todo already exists');
+            setInput('')
+            return
+        }
+
         createTodo(input)
         setInput('')
     }

@@ -19,7 +19,7 @@ const TodoItem = ({ todo, deleteTodo, updateTodo }) => {
         <>
             <div className='flex flex-col md:flex-row justify-between my-3 p-3 border-2 border-green-500 rounded-md'>
                 <div>
-                    <h1>{todo.title}</h1>
+                    <h1 className='text-xl font-bold'>{todo.title}</h1>
                 </div>
                 {/* deleteModal */}
                 <div>
@@ -124,7 +124,7 @@ const TodoItem = ({ todo, deleteTodo, updateTodo }) => {
                                 </div>
                             </div>
                             <input
-                                className="w-full px-3 py-2 mb-3 border-2 border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+                                className="w-full px-3 py-2 mb-3 border-2 border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 text-lg"
                                 value={editedTitle}
                                 onChange={(e) => setEditedTitle(e.target.value)}
                             />

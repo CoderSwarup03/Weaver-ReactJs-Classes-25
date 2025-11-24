@@ -6,10 +6,6 @@ const App = () => {
 
   const [todos, setTodos] = useState([]);
 
-  // const createTodo = async () => {
-  //   await axios.post('http://localhost:8001/todo/create');
-
-  // }
   const createTodo = async (title) => {
     try {
       await axios.post('http://localhost:8001/todo/create', { title });
@@ -30,8 +26,14 @@ const App = () => {
     setTodos(response.data.data);
   }
 
-  const updateTodo = async (_id,title) => {
-    await axios.put(`http://localhost:8001/todo/update/${_id}`,{title});
+  const updateTodo = async (_id, title) => {
+    const existItem = todos.find((item) => item._id === _id && item.title.toLowerCase() === title.toLowerCase());
+    if (existItem) {
+      alert('Todo already exists');
+      return
+    }
+
+    await axios.put(`http://localhost:8001/todo/update/${_id}`, { title });
     await fetchTodos();
   }
   useEffect(() => {
@@ -39,13 +41,13 @@ const App = () => {
   }, [])
   return (
     <>
-      <div className='max-w-[85%] mx-auto'>
-        <h1 className='text-2xl font-bold text-center text-green-500'>TodoApp2.0</h1>
-        <TodoInput createTodo={createTodo} />
+      <div className='max-w-[85%] mx-auto p-4'>
+        <h1 className='text-2xl font-bold text-center text-green-500 mb-4'>TodoApp2.0</h1>
+        <TodoInput createTodo={createTodo} todos={todos} />
         <TodoList todos={todos} deleteTodo={deleteTodo} updateTodo={updateTodo} />
       </div>
     </>
   )
 }
 
-export default App
+export default App 
