@@ -3,9 +3,18 @@ import todoSchema from "../models/todoSchema.js";
 export const createTodo = async (req, res) => {
   try {
     const { title } = req.body;
+    const existTodo = await todoSchema.findOne({ title });
+    if (existTodo) {
+      return res.status(400).json({
+        success: false,
+        message: "Todo already exists",
+      });
+    }
+
     const data = await todoSchema.create({
       title,
     });
+    
     if (data) {
       return res.status(200).json({
         success: true,

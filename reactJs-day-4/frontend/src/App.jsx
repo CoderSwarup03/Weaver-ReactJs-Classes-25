@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import TodoList from './componnts/TodoList';
 import TodoInput from './componnts/TodoInput';
+
 const App = () => {
 
   const [todos, setTodos] = useState([]);
@@ -39,6 +40,7 @@ const App = () => {
   useEffect(() => {
     fetchTodos()
   }, [])
+
   return (
     <>
       <div className='max-w-[85%] mx-auto p-4'>
@@ -50,4 +52,4 @@ const App = () => {
   )
 }
 
-export default App 
+export default App
